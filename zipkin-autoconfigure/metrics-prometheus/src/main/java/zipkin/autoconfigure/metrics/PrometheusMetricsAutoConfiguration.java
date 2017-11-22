@@ -14,6 +14,7 @@
 
 package zipkin.autoconfigure.metrics;
 
+import io.prometheus.client.CollectorRegistry;
 import io.prometheus.client.hotspot.DefaultExports;
 import io.prometheus.client.spring.boot.EnablePrometheusEndpoint;
 import io.prometheus.client.spring.boot.EnableSpringBootMetricsCollector;
@@ -29,6 +30,8 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class PrometheusMetricsAutoConfiguration {
   PrometheusMetricsAutoConfiguration() {
+    // until https://github.com/prometheus/client_java/issues/279
+    CollectorRegistry.defaultRegistry.clear();
     DefaultExports.initialize();
   }
 
